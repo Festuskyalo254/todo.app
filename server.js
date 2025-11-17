@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 require('dotenv').config();
 
-const connectDB = require('./config/database');
+const connectDB = require('./config/db.js');
 
 // Connect to database
 connectDB();
@@ -31,8 +31,8 @@ app.use((error, req, res, next) => {
   });
 });
 
-// Handle 404
-app.use('*', (req, res) => {
+// Handle 404 - catch all unmatched routes (don't pass '*' to the router)
+app.use((req, res) => {
   res.status(404).json({
     success: false,
     error: 'Route not found'
